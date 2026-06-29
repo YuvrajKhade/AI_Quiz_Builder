@@ -39,6 +39,22 @@
 The project was built as a technical assignment with a focus on **clean modular architecture**, **AI integration best practices**, and a unique **Adaptive Difficulty Engine** that adjusts cognitive demand based on past performance.
 
 ---
+## 🎥 Demonstration
+
+<p align="center">
+  <a href="https://drive.google.com/file/d/1-jCvs4U1YV8RNmI8Hz-O7qk8wlAqOUj6/view?usp=sharing">
+    <img
+      src="https://sm.pcmag.com/pcmag_au/review/g/google-dri/google-drive-for-business_928c.png"
+      alt="AI Quiz Builder Demo"
+      width="300"
+    />
+  </a>
+</p>
+
+> Click the thumbnail above to watch the full demonstration — covers quiz generation, answer submission, per-question feedback, and the adaptive difficulty suggestion.
+
+---
+
 
 ## ✨ Features
 
