@@ -1,0 +1,71 @@
+import type { Question } from '../types';
+
+interface Props {
+  questions: Question[];
+  answers: Record<number, string>;
+  onSelect: (index: number, option: string) => void;
+  onSubmit: () => void;
+  allAnswered: boolean;
+  submitting: boolean;
+}
+
+const OPTIONS = ['A', 'B', 'C', 'D'] as const;
+
+export function QuizPlayer({ questions, answers, onSelect, onSubmit, allAnswered, submitting }: Props) {
+  const answered = Object.keys(answers).length;
+
+  return (
+    <div className="space-y-6">
+      <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+        <div className="mb-3 flex items-center justify-between text-sm font-semibold text-slate-600">
+          <span>{answered} / {questions.length} answered</span>
+          <span className="text-cyan-700">{Math.round((answered / questions.length) * 100)}%</span>
+        </div>
+        <div className="flex gap-1.5">
+          {questions.map((_, i) => (
+            <div
+              key={i}
+              className={`h-2 flex-1 rounded-full transition-colors ${answers[i] ? 'bg-cyan-500' : 'bg-slate-200'}`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {questions.map(q => (
+        <div key={q.index} className="space-y-4 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+          <p className="text-sm font-semibold leading-relaxed text-slate-800 sm:text-base">
+            <span className="mr-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-cyan-100 text-xs font-black text-cyan-700">
+              Q{q.index + 1}
+            </span>
+            {q.text}
+          </p>
+
+          <div className="space-y-2">
+            {OPTIONS.map(opt => (
+              <button
+                key={opt}
+                onClick={() => onSelect(q.index, opt)}
+                className={`w-full rounded-2xl border px-4 py-3 text-left text-sm transition-all ${
+                  answers[q.index] === opt
+                    ? 'border-cyan-500 bg-cyan-50 font-semibold text-cyan-800 shadow-sm ring-4 ring-cyan-100'
+                    : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
+                }`}
+              >
+                <span className="mr-2 font-bold">{opt}.</span>
+                {q.options[opt]}
+              </button>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <button
+        onClick={onSubmit}
+        disabled={!allAnswered || submitting}
+        className="w-full rounded-2xl bg-emerald-600 px-4 py-3.5 text-sm font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:-translate-y-0.5 hover:bg-emerald-700 disabled:translate-y-0 disabled:cursor-not-allowed disabled:bg-slate-300 disabled:shadow-none"
+      >
+        {submitting ? 'Submitting...' : 'Submit Quiz'}
+      </button>
+    </div>
+  );
+}
